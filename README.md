@@ -15,6 +15,6 @@ A web application that host some of the most popular retro games, that you can p
 
 ## Authors
 
-- [Andrei Balanica](https://github.com/rob3rtu)
-- [Alexandru Potanga](https://github.com/rob3rtu)
+- [Andrei Balanica](https://github.com/Balanica)
+- [Alexandru Potanga](https://github.com/Destro25)
 - [Robert Udrea](https://github.com/rob3rtu)

@@ -25,13 +25,20 @@ export const Login = () => {
   };
 
   useEffect(() => {
-    setIsDisabled(
-      !(
-        ((registerUser.email.length > 0 && !login) || login) &&
-        registerUser.username.length > 0 &&
-        registerUser.password.length > 6
-      )
-    );
+    if (!login) {
+      setIsDisabled(
+        !(
+          registerUser.email.length > 0 &&
+          registerUser.username.length > 0 &&
+          registerUser.password.length > 6
+        )
+      );
+    } else {
+      setIsDisabled(
+        !(registerUser.email.length > 0 && registerUser.password.length > 6)
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [registerUser]);
 
   return (

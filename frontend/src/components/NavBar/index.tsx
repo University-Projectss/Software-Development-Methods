@@ -1,11 +1,14 @@
 import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface NavBarProps {
   selection: 1 | 2 | 3;
 }
 
 export const NavBar: React.FC<NavBarProps> = ({ selection }) => {
+  const navigate = useNavigate();
+
   return (
     <Flex
       height="10vh"
@@ -27,6 +30,7 @@ export const NavBar: React.FC<NavBarProps> = ({ selection }) => {
           textDecorationStyle="wavy"
           fontSize={20}
           color="#F3EFE0"
+          onClick={() => {navigate("/")}}
         >
           Home
         </Text>
@@ -49,6 +53,7 @@ export const NavBar: React.FC<NavBarProps> = ({ selection }) => {
           cursor="pointer"
           fontSize={20}
           color="#F3EFE0"
+          onClick={() => {navigate("/profile")}}
         >
           Profile
         </Text>

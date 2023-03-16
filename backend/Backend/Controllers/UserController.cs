@@ -21,7 +21,12 @@ namespace Backend.Controllers
         public async Task<IActionResult> CreateUser(UserRequestDTO user)
         {
             await _userService.Create(user);
-            return Ok();
+            var res = _userService.Authentificate(user);
+            if (res == null)
+            {
+                return BadRequest("Invalid Authentification attempt!");
+            }
+            return Ok(res.Token);
         }
 
         [HttpGet("GetAll-users")]

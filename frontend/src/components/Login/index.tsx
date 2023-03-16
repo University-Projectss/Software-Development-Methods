@@ -19,9 +19,6 @@ export const Login = () => {
 
   const handleRegisterClick = () => {
     //here I will call the register function
-    // console.log(registerUser);
-    // localStorage.setItem("token", "abcd");
-    // navigate("/");
 
     apiClient
       .post(`/api/User/${login ? "register" : "create-account"}`, {

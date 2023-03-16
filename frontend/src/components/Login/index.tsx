@@ -1,12 +1,12 @@
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiClient } from "../Utils/apiClient";
 import { RegisterUserInterface } from "./types";
 
 export const Login = () => {
   const [registerUser, setRegisterUser] = useState<RegisterUserInterface>({
     username: "",
-    email: "",
     password: "",
   });
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
@@ -19,25 +19,26 @@ export const Login = () => {
 
   const handleRegisterClick = () => {
     //here I will call the register function
-    console.log(registerUser);
-    localStorage.setItem("token", "abcd");
-    navigate("/");
+    // console.log(registerUser);
+    // localStorage.setItem("token", "abcd");
+    // navigate("/");
+
+    apiClient
+      .post(`/api/User/${login ? "register" : "create-account"}`, {
+        userName: registerUser.username,
+        password: registerUser.password,
+      })
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        navigate("/");
+      });
   };
 
   useEffect(() => {
-    if (!login) {
-      setIsDisabled(
-        !(
-          registerUser.email.length > 0 &&
-          registerUser.username.length > 0 &&
-          registerUser.password.length > 6
-        )
-      );
-    } else {
-      setIsDisabled(
-        !(registerUser.email.length > 0 && registerUser.password.length > 6)
-      );
-    }
+    setIsDisabled(
+      !(registerUser.username.length > 0 && registerUser.password.length > 6)
+    );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [registerUser]);
 
@@ -63,22 +64,12 @@ export const Login = () => {
         <Text fontSize={50} color="#F3EFE0">
           Welcome
         </Text>
-        {!login && (
-          <Input
-            color="#F3EFE0"
-            variant="flushed"
-            placeholder="Username"
-            onChange={(e) => {
-              handleInputChange("username", e.target.value);
-            }}
-          />
-        )}
         <Input
           color="#F3EFE0"
           variant="flushed"
-          placeholder="Email"
+          placeholder="Username"
           onChange={(e) => {
-            handleInputChange("email", e.target.value);
+            handleInputChange("username", e.target.value);
           }}
         />
         <Input

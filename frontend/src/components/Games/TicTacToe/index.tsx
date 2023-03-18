@@ -2,10 +2,12 @@ import { Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { useTicTacToe } from "./useTicTacToe";
 
-interface TicTacToeProps {}
+interface TicTacToeProps {
+  singleplayer: boolean;
+}
 
-export const TicTacToe: React.FC<TicTacToeProps> = () => {
-  const hook = useTicTacToe();
+export const TicTacToe: React.FC<TicTacToeProps> = ({ singleplayer }) => {
+  const hook = useTicTacToe(singleplayer);
 
   return (
     <Flex

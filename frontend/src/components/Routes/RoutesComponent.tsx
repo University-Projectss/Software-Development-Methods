@@ -29,7 +29,7 @@ export const RoutesComponent = () => {
         path="/playground"
         element={
           <ProtectedRoute>
-            <TicTacToe />
+            <TicTacToe singleplayer={true} />
           </ProtectedRoute>
         }
       />

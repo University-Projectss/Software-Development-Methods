@@ -21,7 +21,7 @@ export const Login = () => {
     //here I will call the register function
 
     apiClient
-      .post(`/api/User/${login ? "register" : "create-account"}`, {
+      .post(`/api/User/${login ? "login-user" : "create-user"}`, {
         userName: registerUser.username,
         password: registerUser.password,
       })

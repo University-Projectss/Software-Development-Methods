@@ -3,22 +3,20 @@
  */
 
 import { useEffect, useState } from "react";
-import { MoveInterface } from "./types";
+import { BoardInterface, MoveInterface } from "./types";
 
 export const useTicTacToe = (singleplayer: boolean) => {
   const [turn, setTurn] = useState<number>(1);
   const [playMiniMax, setPlayMiniMax] = useState<boolean>(false);
 
   //   0-isEmpty, 1-X, 2-0
-  const [matrix, setMatrix] = useState<number[][]>([
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-  ]);
-  let matrixMiniMax: any;
+  const [board, setBoard] = useState<BoardInterface>({
+    squares: Array(9).fill(0),
+  });
+  let matrixMiniMax: BoardInterface;
 
   useEffect(() => {
-    const result = checkForWinner(matrix);
+    const result = checkForWinner(board);
 
     if (result !== -1) {
       window.alert(result === 0 ? "DRAW" : result === 1 ? "X WON" : "O WON");
@@ -27,16 +25,17 @@ export const useTicTacToe = (singleplayer: boolean) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matrix]);
+  }, [board]);
 
   useEffect(() => {
     if (singleplayer && playMiniMax) {
-      if (checkForWinner(matrix) !== 1) {
+      if (checkForWinner(board) !== 1) {
         //check if the board is full after my move
         //if it's not, let the minimax play
         let zeros = 0;
         for (let j = 0; j < 3; j++)
-          for (let k = 0; k < 3; k++) if (matrix[j][k] === 0) zeros++;
+          for (let k = 0; k < 3; k++)
+            if (board.squares[3 * j + k] === 0) zeros++;
 
         if (zeros === 0) {
           resetTable();
@@ -50,23 +49,21 @@ export const useTicTacToe = (singleplayer: boolean) => {
   }, [playMiniMax]);
 
   const updateMatrix = (
-    f: (m: number[][]) => void,
-    m: number[][],
+    f: (m: BoardInterface) => void,
+    m: BoardInterface,
     i: number,
     j: number,
     val: number
   ) => {
-    f(
-      m.map((row, ii) => {
-        return row.map((cell, jj) => {
-          if (i === ii && j === jj) {
-            return val;
-          } else {
-            return cell;
-          }
-        });
-      })
-    );
+    f({
+      squares: m.squares.map((old, index) => {
+        if (index === i * 3 + j) {
+          return val;
+        } else {
+          return old;
+        }
+      }),
+    });
   };
 
   const showText = (cell: number) => {
@@ -81,8 +78,8 @@ export const useTicTacToe = (singleplayer: boolean) => {
   };
 
   const handleCellClick = (i: number, j: number) => {
-    if (matrix[i][j] === 0) {
-      updateMatrix(setMatrix, matrix, i, j, turn);
+    if (board.squares[3 * i + j] === 0) {
+      updateMatrix(setBoard, board, i, j, turn);
 
       if (!singleplayer) {
         setTurn(turn === 1 ? 2 : 1);
@@ -96,25 +93,23 @@ export const useTicTacToe = (singleplayer: boolean) => {
     let bestScore = -Infinity;
     let move: MoveInterface = { i: 0, j: 0 };
 
-    matrixMiniMax = matrix;
+    matrixMiniMax = board;
 
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (matrixMiniMax[i][j] === 0) {
-          matrixMiniMax[i][j] = 2;
-          let score = minimax(matrixMiniMax, false);
-          matrixMiniMax[i][j] = 0;
-          if (score > bestScore) {
-            bestScore = score;
-            move = { i, j };
-          }
+    for (let i = 0; i < 9; i++) {
+      if (matrixMiniMax.squares[i] === 0) {
+        matrixMiniMax.squares[i] = 2;
+        let score = minimax(matrixMiniMax, false);
+        matrixMiniMax.squares[i] = 0;
+        if (score > bestScore) {
+          bestScore = score;
+          move = { i: Math.floor(i / 3), j: i % 3 };
         }
       }
     }
-    updateMatrix(setMatrix, matrix, move.i, move.j, 2);
+    updateMatrix(setBoard, board, move.i, move.j, 2);
   };
 
-  const minimax = (matrixMiniMax: any, isMaximizing: boolean) => {
+  const minimax = (matrixMiniMax: BoardInterface, isMaximizing: boolean) => {
     let result = checkForWinner(matrixMiniMax);
 
     if (result !== -1) {
@@ -123,27 +118,23 @@ export const useTicTacToe = (singleplayer: boolean) => {
 
     if (isMaximizing) {
       let bestScore = -Infinity;
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-          if (matrixMiniMax[i][j] === 0) {
-            matrixMiniMax[i][j] = 2;
-            let score = minimax(matrixMiniMax, false);
-            matrixMiniMax[i][j] = 0;
-            bestScore = Math.max(score, bestScore);
-          }
+      for (let i = 0; i < 9; i++) {
+        if (matrixMiniMax.squares[i] === 0) {
+          matrixMiniMax.squares[i] = 2;
+          let score = minimax(matrixMiniMax, false);
+          matrixMiniMax.squares[i] = 0;
+          bestScore = Math.max(score, bestScore);
         }
       }
       return bestScore;
     } else {
       let bestScore = Infinity;
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-          if (matrixMiniMax[i][j] === 0) {
-            matrixMiniMax[i][j] = 1;
-            let score = minimax(matrixMiniMax, true);
-            matrixMiniMax[i][j] = 0;
-            bestScore = Math.min(score, bestScore);
-          }
+      for (let i = 0; i < 9; i++) {
+        if (matrixMiniMax.squares[i] === 0) {
+          matrixMiniMax.squares[i] = 1;
+          let score = minimax(matrixMiniMax, true);
+          matrixMiniMax.squares[i] = 0;
+          bestScore = Math.min(score, bestScore);
         }
       }
       return bestScore;
@@ -151,73 +142,41 @@ export const useTicTacToe = (singleplayer: boolean) => {
   };
 
   const resetTable = () => {
-    setMatrix([
-      [0, 0, 0],
-      [0, 0, 0],
-      [0, 0, 0],
-    ]);
+    setBoard({ squares: Array(9).fill(0) });
   };
 
-  const checkForWinner = (matrix: number[][]) => {
-    //lines
-    for (let i = 0; i < 3; i++) {
+  const checkForWinner = (board: BoardInterface) => {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
       if (
-        matrix[i][0] === matrix[i][1] &&
-        matrix[i][1] === matrix[i][2] &&
-        matrix[i][2] !== 0
+        board.squares[a] !== 0 &&
+        board.squares[a] === board.squares[b] &&
+        board.squares[b] === board.squares[c]
       ) {
-        return matrix[i][1];
+        return board.squares[a];
       }
     }
 
-    //columns
-    for (let i = 0; i < 3; i++) {
-      if (
-        matrix[0][i] === matrix[1][i] &&
-        matrix[1][i] === matrix[2][i] &&
-        matrix[2][i] !== 0
-      ) {
-        return matrix[1][i];
-      }
-    }
+    for (let i = 0; i < 9; i++) if (board.squares[i] === 0) return -1;
 
-    //first diagonale
-    if (
-      matrix[0][0] === matrix[1][1] &&
-      matrix[1][1] === matrix[2][2] &&
-      matrix[2][2] !== 0
-    ) {
-      return matrix[1][1];
-    }
-
-    //second diagonale
-    if (
-      matrix[0][2] === matrix[1][1] &&
-      matrix[1][1] === matrix[2][0] &&
-      matrix[2][0] !== 0
-    ) {
-      return matrix[1][1];
-    }
-
-    let zeros = 0;
-    for (let j = 0; j < 3; j++)
-      for (let k = 0; k < 3; k++) if (matrix[j][k] === 0) zeros++;
-
-    if (zeros === 0) {
-      return 0;
-    } else {
-      return -1;
-    }
+    return 0;
   };
-
-  /**
-   * MINIMAX IMPLEMENTATION
-   */
 
   return {
     showText,
-    matrix,
-    setMatrix,
+    board,
+    setBoard,
     handleCellClick,
     turn,
   };

@@ -23,28 +23,26 @@ export const TicTacToe: React.FC<TicTacToeProps> = ({ singleplayer }) => {
       </Text>
       {/* The following Grid represents the tic tac toe table */}
       <Grid height="300px" width="300px" templateColumns="repeat(3, 100px)">
-        {hook.matrix.map((row, i) => {
-          return row.map((cell, j) => {
-            return (
-              <GridItem
-                key={i + j}
-                height="100px"
-                width="100px"
-                border="2px solid #F3EFE0"
-                fontSize="80px"
-                cursor="pointer"
-                color="#F3EFE0"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                onClick={() => {
-                  hook.handleCellClick(i, j);
-                }}
-              >
-                {hook.showText(cell)}
-              </GridItem>
-            );
-          });
+        {hook.board.squares.map((cell, index) => {
+          return (
+            <GridItem
+              key={index}
+              height="100px"
+              width="100px"
+              border="2px solid #F3EFE0"
+              fontSize="80px"
+              cursor="pointer"
+              color="#F3EFE0"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              onClick={() => {
+                hook.handleCellClick(Math.floor(index / 3), index % 3);
+              }}
+            >
+              {hook.showText(cell)}
+            </GridItem>
+          );
         })}
       </Grid>
     </Flex>

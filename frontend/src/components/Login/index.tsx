@@ -22,22 +22,23 @@ export const Login = () => {
   const handleRegisterClick = () => {
     //here I will call the register function
 
-    localStorage.setItem("token", "token");
-    navigate("/");
-    userContext.setUser({ username: registerUser.username });
+    //localStorage.setItem("token", "token");
+    //navigate("/");
+    //userContext.setUser({ username: //registerUser.username });
 
-    // apiClient
-    //   .post(`/api/User/${login ? "login-user" : "create-user"}`, {
-    //     userName: registerUser.username,
-    //     password: registerUser.password,
-    //   })
-    //   .then((res) => {
-    //     localStorage.setItem("token", res.data.token);
-    //     navigate("/");
-    //   }).catch(err => {
-    //     console.log(err);
+     apiClient
+       .post(`/api/User/${login ? "login-user" : "create-user"}`, {
+         userName: registerUser.username,
+         password: registerUser.password,
+       })
+       .then((res) => {
+         localStorage.setItem("token", res.data.token);
+userContext.setUser({ username: registerUser.username });
+         navigate("/");
+       }).catch(err => {
+         console.log(err);
 
-    //   });
+       });
   };
 
   useEffect(() => {

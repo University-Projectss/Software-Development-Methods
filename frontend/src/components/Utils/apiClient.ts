@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 
-export const BASE_URL = "http://localhost:5247";
+export const BASE_URL = "https://localhost:7193";
 
 export const getAccesToken = () => {
   return localStorage.getItem("token");
@@ -34,4 +34,4 @@ export const apiClient = axios.create({
   baseURL: BASE_URL,
 });
 
-errorInterceptor(apiClient);
+//errorInterceptor(apiClient);

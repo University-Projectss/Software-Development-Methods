@@ -20,7 +20,7 @@ export const Forum = () => {
     if (e.key === "Enter") {
       //submit the answer
       apiClient
-        .post("/api/create-message")
+        .post("/api/Message/create-message", {username: userContext.user.username, textMessage: currentMessage})
         .then(() => {
           console.log("ok message post");
         })
@@ -37,7 +37,7 @@ export const Forum = () => {
   };
 
   useEffect(() => {
-    apiClient.get("/api/GetAll-Messages").then((res: any) => {
+    apiClient.get("/api/Message/GetAll-Messages").then((res: any) => {
       setMessages(
         res
           .map((m: any) => {

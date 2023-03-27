@@ -1,7 +1,8 @@
 import { Flex, Input, Text, VStack } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../App";
 import { NavBar } from "../NavBar";
+import { apiClient } from "../Utils/apiClient";
 import { MessageInterface } from "./types";
 
 export const Forum = () => {
@@ -18,6 +19,15 @@ export const Forum = () => {
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       //submit the answer
+      apiClient
+        .post("/api/create-message")
+        .then(() => {
+          console.log("ok message post");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
       setMessages([
         { username: userContext.user.username, text: currentMessage },
         ...messages,
@@ -25,6 +35,23 @@ export const Forum = () => {
       setCurrentMessage("");
     }
   };
+
+  useEffect(() => {
+    apiClient.get("/api/GetAll-Messages").then((res: any) => {
+      setMessages(
+        res
+          .map((m: any) => {
+            return {
+              username: m.username,
+              text: m.textMessage,
+            };
+          })
+          .catch((err: any) => {
+            console.log(err);
+          })
+      );
+    });
+  }, []);
 
   return (
     <>

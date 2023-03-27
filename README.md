@@ -2,6 +2,10 @@
 
 A web application that host some of the most popular retro games, that you can play solo or with your friends.
 
+## Games
+
+ Tic Tac Toe, Connect Four, Space Invaders Custom
+
 ## Features
 
 - Top 5 players on every game

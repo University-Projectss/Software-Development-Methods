@@ -1,10 +1,12 @@
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
 import { apiClient } from "../Utils/apiClient";
 import { RegisterUserInterface } from "./types";
 
 export const Login = () => {
+  const userContext = useContext(UserContext);
   const [registerUser, setRegisterUser] = useState<RegisterUserInterface>({
     username: "",
     password: "",
@@ -22,6 +24,7 @@ export const Login = () => {
 
     localStorage.setItem("token", "token");
     navigate("/");
+    userContext.setUser({ username: registerUser.username });
 
     // apiClient
     //   .post(`/api/User/${login ? "login-user" : "create-user"}`, {

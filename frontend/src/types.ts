@@ -7,6 +7,4 @@ export interface UserContextInterface {
 
 export interface UserInterface {
   username: string;
-  mail: string;
-  id: string;
 }

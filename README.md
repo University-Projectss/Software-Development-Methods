@@ -4,7 +4,7 @@ A web application that host some of the most popular retro games, that you can p
 
 ## Games
 
- Tic Tac Toe, Connect Four, Space Invaders Custom
+Tic Tac Toe, Connect Four, Space Invaders Custom
 
 ## Features
 
@@ -15,7 +15,6 @@ A web application that host some of the most popular retro games, that you can p
 - Game preview
 - Authentication
 - Profile page with achievements, top games, stats/game
-
 
 ## Authors
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { Forum } from "../Forum";
 import { TicTacToe } from "../Games/TicTacToe";
 import { HomeComponent } from "../Home";
 import { Login } from "../Login";
@@ -14,6 +15,14 @@ export const RoutesComponent = () => {
         element={
           <ProtectedRoute>
             <HomeComponent />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/forum"
+        element={
+          <ProtectedRoute>
+            <Forum />
           </ProtectedRoute>
         }
       />

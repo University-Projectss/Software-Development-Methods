@@ -49,6 +49,7 @@ namespace Backend.Services.UserService
             c.UserName = user.UserName;
             c.Email = user.Email;
             c.TotalValue = user.TotalValue;
+            c.Messages = user.Messages;
 
             await _userRepository.SaveAsync();
 

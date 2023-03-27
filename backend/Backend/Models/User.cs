@@ -9,6 +9,7 @@ namespace Backend.Models
         public string Email { get; set; } = string.Empty;
         public int TotalValue { get; set; } = 0;
 
+        public ICollection<Message>? Messages { get; set; } = null;
         [JsonIgnore]
         public string PasswordHash { get; set; } = String.Empty;
 

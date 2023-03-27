@@ -30,7 +30,9 @@ export const NavBar: React.FC<NavBarProps> = ({ selection }) => {
           textDecorationStyle="wavy"
           fontSize={20}
           color="#F3EFE0"
-          onClick={() => {navigate("/")}}
+          onClick={() => {
+            navigate("/");
+          }}
         >
           Home
         </Text>
@@ -42,6 +44,9 @@ export const NavBar: React.FC<NavBarProps> = ({ selection }) => {
           cursor="pointer"
           fontSize={20}
           color="#F3EFE0"
+          onClick={() => {
+            navigate("/forum");
+          }}
         >
           Forum
         </Text>
@@ -53,7 +58,9 @@ export const NavBar: React.FC<NavBarProps> = ({ selection }) => {
           cursor="pointer"
           fontSize={20}
           color="#F3EFE0"
-          onClick={() => {navigate("/profile")}}
+          onClick={() => {
+            navigate("/profile");
+          }}
         >
           Profile
         </Text>

@@ -15,8 +15,6 @@ export const useAuth = (): UserContextInterface => {
       .then((res) => {
         setUser({
           username: res.data.username,
-          mail: res.data.email,
-          id: res.data.id,
         });
 
         if (location.pathname === "/login") navigate("/");

@@ -20,7 +20,13 @@ export const Forum = () => {
     if (e.key === "Enter") {
       //submit the answer
       apiClient
-        .post("/api/Message/create-message", {username: userContext.user.username, textMessage: currentMessage})
+        .post(
+          "/api/Message/create-message?" +
+            new URLSearchParams({
+              username: userContext.user.username,
+              textMessage: currentMessage,
+            })
+        )
         .then(() => {
           console.log("ok message post");
         })

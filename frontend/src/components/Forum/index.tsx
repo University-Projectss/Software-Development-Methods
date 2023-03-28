@@ -43,20 +43,21 @@ export const Forum = () => {
   };
 
   useEffect(() => {
-    apiClient.get("/api/Message/GetAll-Messages").then((res: any) => {
-      setMessages(
-        res
-          .map((m: any) => {
+    apiClient
+      .get("/api/Message/GetAll-Messages")
+      .then((res: any) => {
+        setMessages(
+          res.data.map((m: any) => {
             return {
               username: m.username,
               text: m.textMessage,
             };
           })
-          .catch((err: any) => {
-            console.log(err);
-          })
-      );
-    });
+        );
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
   }, []);
 
   return (

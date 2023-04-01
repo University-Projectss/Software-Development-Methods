@@ -6,6 +6,7 @@ import { HomeComponent } from "../Home";
 import { Login } from "../Login";
 import { Profile } from "../Profile";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { ConnetFour } from "../Games/ConnectFour";
 
 export const RoutesComponent = () => {
   return (
@@ -38,7 +39,7 @@ export const RoutesComponent = () => {
         path="/playground"
         element={
           <ProtectedRoute>
-            <TicTacToe singleplayer={true} />
+            <ConnetFour />
           </ProtectedRoute>
         }
       />

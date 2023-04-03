@@ -1,10 +1,198 @@
 import { Flex } from "@chakra-ui/react";
-import React from "react";
+import { log } from "console";
+import { useEffect, useState } from "react";
 
 export const ConnetFour = () => {
+  const [turn, setTurn] = useState<string>("yellow");
+
+  let mat: any = [];
+  for (let i = 0; i < 6; i++) {
+    let v: any = [];
+    mat.push(v);
+  }
+
+  let matVerif: any = [];
+  for (let i = 0; i < 6; i++) {
+    let vct: any = [];
+    matVerif.push(vct);
+  }
+  //mat de frecventa
+  for (let i = 0; i < 6; i++) for (let j = 0; j < 7; j++) matVerif[i][j] = 0; //O sa pun 1 pt galben si 2 pt rosu
+
+  let ultim_i, ultim_j;
+
+  //prima linie
+  useEffect(() => {
+    mat[0][0] = document.getElementById("Ellipse 1");
+    mat[0][1] = document.getElementById("Ellipse 7");
+    mat[0][2] = document.getElementById("Ellipse 13");
+    mat[0][3] = document.getElementById("Ellipse 14");
+    mat[0][4] = document.getElementById("Ellipse 26");
+    mat[0][5] = document.getElementById("Ellipse 25");
+    mat[0][6] = document.getElementById("Ellipse 27");
+
+    //a doua linie
+    mat[1][0] = document.getElementById("Ellipse 2");
+    mat[1][1] = document.getElementById("Ellipse 8");
+    mat[1][2] = document.getElementById("Ellipse 15");
+    mat[1][3] = document.getElementById("Ellipse 16");
+    mat[1][4] = document.getElementById("Ellipse 29");
+    mat[1][5] = document.getElementById("Ellipse 28");
+    mat[1][6] = document.getElementById("Ellipse 30");
+
+    //a treia linie
+    mat[2][0] = document.getElementById("Ellipse 3");
+    mat[2][1] = document.getElementById("Ellipse 9");
+    mat[2][2] = document.getElementById("Ellipse 17");
+    mat[2][3] = document.getElementById("Ellipse 18");
+    mat[2][4] = document.getElementById("Ellipse 32");
+    mat[2][5] = document.getElementById("Ellipse 31");
+    mat[2][6] = document.getElementById("Ellipse 33");
+
+    //a patra linie
+    mat[3][0] = document.getElementById("Ellipse 4");
+    mat[3][1] = document.getElementById("Ellipse 10");
+    mat[3][2] = document.getElementById("Ellipse 19");
+    mat[3][3] = document.getElementById("Ellipse 20");
+    mat[3][4] = document.getElementById("Ellipse 35");
+    mat[3][5] = document.getElementById("Ellipse 34");
+    mat[3][6] = document.getElementById("Ellipse 36");
+
+    //a cincia linie
+    mat[4][0] = document.getElementById("Ellipse 5");
+    mat[4][1] = document.getElementById("Ellipse 11");
+    mat[4][2] = document.getElementById("Ellipse 21");
+    mat[4][3] = document.getElementById("Ellipse 22");
+    mat[4][4] = document.getElementById("Ellipse 38");
+    mat[4][5] = document.getElementById("Ellipse 37");
+    mat[4][6] = document.getElementById("Ellipse 39");
+
+    //a sasea linie
+    mat[5][0] = document.getElementById("Ellipse 6");
+    mat[5][1] = document.getElementById("Ellipse 12");
+    mat[5][2] = document.getElementById("Ellipse 23");
+    mat[5][3] = document.getElementById("Ellipse 24");
+    mat[5][4] = document.getElementById("Ellipse 41");
+    mat[5][5] = document.getElementById("Ellipse 40");
+    mat[5][6] = document.getElementById("Ellipse 42");
+  }, []);
+
+  let color = 0; //nr par -> galben ... nr impar -> rosu
+
+  const verify = (nr: number) => {};
+
+  const puneBila = (nr: number) => {
+    let i;
+    nr--;
+
+    for (i = 5; i >= 0; i--) {
+      if (mat[i][nr].innerHTML !== "0") {
+        //0 inseamna ca am bila pe poz aia
+        // console.log(mat[i][nr].innerHTML);
+        mat[i][nr].innerHTML = "0";
+        break;
+      }
+    }
+
+    // console.log( i );
+
+    if (i >= 0) {
+      if (color % 2 === 0) {
+        mat[i][nr].style.fill = "yellow";
+        matVerif[i][nr] = 1; //1 -> galben
+      } else {
+        mat[i][nr].style.fill = "red";
+        matVerif[i][nr] = 2; //2 -> rosu
+      }
+
+      color++;
+
+      // console.log(mat[i][nr].style.fill);
+
+      ultim_i = i; //pentru functia de undo
+      ultim_j = nr;
+    }
+  };
+
+  const verifica = () => {};
+
+  const columnClick = (i: number) => {
+    verify(i);
+    puneBila(i);
+    verifica();
+  };
+
   return (
     <Flex direction="column" align="center" justify="center" h="100vh">
-      <div>
+      <h2>
+        {" "}
+        <span>{turn}</span> turn
+      </h2>
+
+      {/* board */}
+      <div
+        style={{
+          position: "relative",
+          width: "90%",
+          maxHeight: "771px",
+          maxWidth: "915px",
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: 0,
+          }}
+        >
+          <div
+            style={colStyle}
+            onClick={() => {
+              columnClick(1);
+            }}
+          ></div>
+          <div
+            style={colStyle}
+            onClick={() => {
+              columnClick(2);
+            }}
+          ></div>
+          <div
+            style={colStyle}
+            onClick={() => {
+              columnClick(3);
+            }}
+          ></div>
+          <div
+            style={colStyle}
+            onClick={() => {
+              columnClick(4);
+            }}
+          ></div>
+          <div
+            style={colStyle}
+            onClick={() => {
+              columnClick(5);
+            }}
+          ></div>
+          <div
+            style={colStyle}
+            onClick={() => {
+              columnClick(6);
+            }}
+          ></div>
+          <div
+            style={colStyle}
+            onClick={() => {
+              columnClick(7);
+            }}
+          ></div>
+        </div>
+
         <svg
           width="915"
           height="771"
@@ -107,4 +295,11 @@ export const ConnetFour = () => {
       </div>
     </Flex>
   );
+};
+
+const colStyle = {
+  width: "100%",
+  height: "100%",
+  color: "aliceblue",
+  border: "1px solid black",
 };

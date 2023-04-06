@@ -1,14 +1,5 @@
-import {
-  Button,
-  ButtonGroup,
-  Divider,
-  Flex,
-  Heading,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { NavBar } from "../NavBar";
-import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
 import { GameCard } from "./GameCard";
 
 export const HomeComponent = () => {

@@ -1,10 +1,7 @@
 import { Flex } from "@chakra-ui/react";
-import { log } from "console";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export const ConnetFour = () => {
-  const [turn, setTurn] = useState<string>("yellow");
-
   let mat: any = [];
   for (let i = 0; i < 6; i++) {
     let v: any = [];
@@ -18,8 +15,6 @@ export const ConnetFour = () => {
   }
   //mat de frecventa
   for (let i = 0; i < 6; i++) for (let j = 0; j < 7; j++) matVerif[i][j] = 0; //O sa pun 1 pt galben si 2 pt rosu
-
-  let ultim_i, ultim_j;
 
   //prima linie
   useEffect(() => {
@@ -79,8 +74,6 @@ export const ConnetFour = () => {
 
   let color = 0; //nr par -> galben ... nr impar -> rosu
 
-  const verify = (nr: number) => {};
-
   const puneBila = (nr: number) => {
     let i;
     nr--;
@@ -106,29 +99,99 @@ export const ConnetFour = () => {
       }
 
       color++;
-
-      // console.log(mat[i][nr].style.fill);
-
-      ultim_i = i; //pentru functia de undo
-      ultim_j = nr;
     }
   };
 
-  const verifica = () => {};
+  const verifica = () => {
+    let i, j;
+    let egal = true;
+
+    eEgal: for (i = 0; i < 6; i++)
+      for (j = 0; j < 7; j++)
+        if (matVerif[i][j] === 0) {
+          egal = false;
+          break eEgal;
+        }
+
+    if (egal) {
+      reset("draw");
+    } else {
+      //pe linii
+      peLinii: for (i = 0; i < 6; i++)
+        for (j = 0; j < 4; j++)
+          if (
+            matVerif[i][j] === matVerif[i][j + 1] &&
+            matVerif[i][j] === matVerif[i][j + 2] &&
+            matVerif[i][j] === matVerif[i][j + 3] &&
+            (matVerif[i][j] === 1 || matVerif[i][j] === 2)
+          ) {
+            reset(mat[i][j].style.fill);
+            break peLinii;
+          }
+
+      //pe coloane
+      peColoane: for (j = 0; j < 7; j++)
+        for (i = 0; i < 3; i++)
+          if (
+            matVerif[i][j] === matVerif[i + 1][j] &&
+            matVerif[i][j] === matVerif[i + 2][j] &&
+            matVerif[i][j] === matVerif[i + 3][j] &&
+            (matVerif[i][j] === 1 || matVerif[i][j] === 2)
+          ) {
+            reset(mat[i][j].style.fill);
+            break peColoane;
+          }
+
+      //pe dagonale spre st
+      peDiagonaleSt: for (i = 0; i < 3; i++)
+        for (j = 0; j < 4; j++)
+          if (
+            matVerif[i][j] === matVerif[i + 1][j + 1] &&
+            matVerif[i][j] === matVerif[i + 2][j + 2] &&
+            matVerif[i][j] === matVerif[i + 3][j + 3] &&
+            (matVerif[i][j] === 1 || matVerif[i][j] === 2)
+          ) {
+            reset(mat[i][j].style.fill);
+            break peDiagonaleSt;
+          }
+      //pe diagonale spre dr
+      peDiagonaleDr: for (i = 0; i < 3; i++)
+        for (j = 6; j >= 3; j--)
+          if (
+            matVerif[i][j] === matVerif[i + 1][j - 1] &&
+            matVerif[i][j] === matVerif[i + 2][j - 2] &&
+            matVerif[i][j] === matVerif[i + 3][j - 3] &&
+            (matVerif[i][j] === 1 || matVerif[i][j] === 2)
+          ) {
+            reset(mat[i][j].style.fill);
+            break peDiagonaleDr;
+          }
+    }
+  };
+
+  const reset = (winner: string) => {
+    let i, j;
+    if (winner === "red" || winner === "yellow") {
+      alert(`${winner.toUpperCase()} WIN!`);
+    } else {
+      alert("DRAW!");
+    }
+
+    for (i = 0; i < 6; i++)
+      for (j = 0; j < 7; j++) {
+        matVerif[i][j] = 0;
+        mat[i][j].innerHTML = "1";
+        mat[i][j].style.fill = "#2468A4";
+      }
+  };
 
   const columnClick = (i: number) => {
-    verify(i);
     puneBila(i);
     verifica();
   };
 
   return (
     <Flex direction="column" align="center" justify="center" h="100vh">
-      <h2>
-        {" "}
-        <span>{turn}</span> turn
-      </h2>
-
       {/* board */}
       <div
         style={{

@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 interface GameCardProps {
   title: string;
@@ -20,6 +21,18 @@ export const GameCard: React.FC<GameCardProps> = ({
   description,
   rating,
 }) => {
+  const navigate = useNavigate();
+
+  const navigateToGamePage = () => {
+    navigate("/play", {
+      state: {
+        title,
+        description,
+        rating,
+      },
+    });
+  };
+
   return (
     <Card maxW="sm" height={300}>
       <CardBody position="relative">
@@ -39,7 +52,7 @@ export const GameCard: React.FC<GameCardProps> = ({
       </CardBody>
       <Divider />
       <CardFooter>
-        <Button variant="solid" colorScheme="blue">
+        <Button variant="solid" colorScheme="blue" onClick={navigateToGamePage}>
           Play now
         </Button>
       </CardFooter>

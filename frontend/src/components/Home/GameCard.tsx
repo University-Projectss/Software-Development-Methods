@@ -34,7 +34,7 @@ export const GameCard: React.FC<GameCardProps> = ({
   };
 
   return (
-    <Card maxW="sm" height={300}>
+    <Card maxW="sm" height={300} marginTop={10}>
       <CardBody position="relative">
         <Stack spacing="3">
           <Heading size="md">{title}</Heading>

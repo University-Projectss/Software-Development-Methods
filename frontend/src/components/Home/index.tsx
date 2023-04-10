@@ -9,7 +9,7 @@ export const HomeComponent = () => {
       <Flex
         direction="column"
         backgroundColor="#222222"
-        height="90vh"
+        minH="90vh"
         width="100vw"
         align="center"
         justify="space-between"
@@ -20,7 +20,7 @@ export const HomeComponent = () => {
           This is where the fun begins!
         </Text>
 
-        <Flex width="100%" justify="space-evenly" align="center">
+        <Flex width="100%" justify="space-evenly" align="center" wrap="wrap">
           <GameCard
             title="Tic Tac Toe"
             description="Tic Tac Toe is a classic two-player game played on a 3x3 grid. Each

@@ -6,5 +6,6 @@ namespace Backend.Services.ReviewService
     {
         Task Create(string username,string gamename, string reviewText, int rating);
         Task<List<Review>> GetAll();
+        Task<List<Review>> GetAllByGameId(Guid id);  
     }
 }

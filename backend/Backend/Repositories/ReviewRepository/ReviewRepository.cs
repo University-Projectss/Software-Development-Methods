@@ -9,5 +9,10 @@ namespace Backend.Repositories.ReviewRepository
         public ReviewRepository(DataBaseContext dataBaseContext) : base(dataBaseContext)
         {
         }
+
+        public async Task<List<Review>> GetAllbyGameID(Guid id)
+        {
+             return _table.Where(Review => Review.GameId == id).ToList();
+        }
     }
 }

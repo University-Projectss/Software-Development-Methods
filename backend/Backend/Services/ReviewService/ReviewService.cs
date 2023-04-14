@@ -42,5 +42,11 @@ namespace Backend.Services.ReviewService
         {
             return _reviewRepository.GetAll();
         }
+
+        public Task<List<Review>> GetAllByGameId(Guid id)
+        {
+            return _reviewRepository.GetAllbyGameID(id);
+        }
+
     }
 }

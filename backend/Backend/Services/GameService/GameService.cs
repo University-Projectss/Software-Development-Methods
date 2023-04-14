@@ -22,5 +22,10 @@ namespace Backend.Services.GameService
             await _gameRepository.CreateAsync(newGame);
             await _gameRepository.SaveAsync();
         }
+
+        public Game GetByGameName(string gamename)
+        {
+             return _gameRepository.GetUserByGamename(gamename);
+        }
     }
 }

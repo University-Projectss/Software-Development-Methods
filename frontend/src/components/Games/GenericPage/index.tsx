@@ -64,8 +64,14 @@ export const GenericPage = () => {
       />
 
       <Flex marginLeft={10} direction="column" h={600} justify="center">
-        <Button marginBottom={10}>Multiplayer</Button>
-        {title.toLowerCase() === "tic tac toe" && <Button>Singleplayer</Button>}
+        {(title.toLowerCase() === "connect four" ||
+          title.toLowerCase() === "tic tac toe") && (
+          <Button marginBottom={10}>Multiplayer</Button>
+        )}
+        {(title.toLowerCase() === "tic tac toe" ||
+          title.toLowerCase() === "space invaders") && (
+          <Button>Singleplayer</Button>
+        )}
       </Flex>
 
       <Flex

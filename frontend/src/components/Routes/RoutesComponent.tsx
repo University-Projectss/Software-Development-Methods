@@ -6,6 +6,7 @@ import { Profile } from "../Profile";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { ConnetFour } from "../Games/ConnectFour";
 import { GenericPage } from "../Games/GenericPage";
+import { SpaceInvaders } from "../Games/SpaceInvaders";
 
 export const RoutesComponent = () => {
   return (
@@ -46,7 +47,7 @@ export const RoutesComponent = () => {
         path="/playground"
         element={
           <ProtectedRoute>
-            <ConnetFour />
+            <SpaceInvaders />
           </ProtectedRoute>
         }
       />

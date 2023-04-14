@@ -14,10 +14,45 @@ import {
 import { Textarea } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/react";
 
+import { useContext, useEffect, useState } from "react";
+import { apiClient } from "../../Utils/apiClient";
+import { UserContext } from "../../../App";
+
 export const GenericPage = () => {
+  const user = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const { title, description, rating } = location.state;
+
+  const [reviewText, setReviewText] = useState<string>("");
+  const [reviewRating, setReviewRating] = useState<number>(1);
+
+  const sendReview = () => {
+    apiClient
+      .post("/api/Review/Create", {
+        username: user.user.username,
+        namegame:
+          title.toLowerCase() === "tictactoe"
+            ? "xsizero"
+            : title.toLowerCase() === "connectfour"
+            ? "ConnectFour"
+            : title.toLowerCase() === "spaceinvaders"
+            ? "Space Invaders"
+            : "",
+        reviewText: reviewText,
+        rating: reviewRating,
+      })
+      .then(() => {
+        console.log("POST GOOD");
+      })
+      .catch((err) => console.log(err));
+
+    onClose();
+  };
+
+  useEffect(() => {
+    console.log(reviewText.length);
+  }, []);
 
   return (
     <Flex
@@ -109,14 +144,24 @@ export const GenericPage = () => {
               minH={100}
               maxH={300}
               placeholder="This is the best game I've ever played"
+              value={reviewText}
+              onChange={(e) => {
+                setReviewText(e.target.value);
+              }}
             />
 
-            <Select marginTop={10}>
-              <option value="option1">1 star</option>
-              <option value="option2">2 star</option>
-              <option value="option3">3 star</option>
-              <option value="option4">4 star</option>
-              <option value="option5">5 star</option>
+            <Select
+              marginTop={10}
+              value={reviewRating}
+              onChange={(e) => {
+                setReviewRating(parseInt(e.target.value));
+              }}
+            >
+              <option value="1">1 star</option>
+              <option value="2">2 star</option>
+              <option value="3">3 star</option>
+              <option value="4">4 star</option>
+              <option value="5">5 star</option>
             </Select>
           </ModalBody>
 
@@ -124,7 +169,13 @@ export const GenericPage = () => {
             <Button variant="ghost" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button colorScheme="blue">Send</Button>
+            <Button
+              colorScheme="blue"
+              onClick={sendReview}
+              isDisabled={reviewText.length === 0}
+            >
+              Send
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

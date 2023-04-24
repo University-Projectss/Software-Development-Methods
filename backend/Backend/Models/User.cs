@@ -10,6 +10,7 @@ namespace Backend.Models
         public int TotalValue { get; set; } = 0;
 
         public ICollection<Message>? Messages { get; set; } = null;
+        public ICollection<Review>? Reviews { get; set; } = null;
         [JsonIgnore]
         public string PasswordHash { get; set; } = String.Empty;
 

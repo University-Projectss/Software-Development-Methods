@@ -1,11 +1,12 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Forum } from "../Forum";
-import { TicTacToe } from "../Games/TicTacToe";
 import { HomeComponent } from "../Home";
 import { Login } from "../Login";
 import { Profile } from "../Profile";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { ConnetFour } from "../Games/ConnectFour";
+import { GenericPage } from "../Games/GenericPage";
+import { SpaceInvaders } from "../Games/SpaceInvaders";
 
 export const RoutesComponent = () => {
   return (
@@ -35,10 +36,18 @@ export const RoutesComponent = () => {
         }
       />
       <Route
+        path="/play"
+        element={
+          <ProtectedRoute>
+            <GenericPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/playground"
         element={
           <ProtectedRoute>
-            <TicTacToe singleplayer={true} />
+            <SpaceInvaders />
           </ProtectedRoute>
         }
       />

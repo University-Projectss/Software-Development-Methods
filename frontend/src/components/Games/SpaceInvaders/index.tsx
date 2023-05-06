@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Style.module.css";
-import { log } from "console";
 
 export const SpaceInvaders = () => {
   /*
@@ -11,6 +10,8 @@ export const SpaceInvaders = () => {
 */
   const [angle, setAngle] = useState<number>(0);
   const [direction, setDirection] = useState<number>(0);
+
+  const [tieSpeed, setTieSpeed] = useState<number>(7);
 
   const gameRef = useRef<HTMLDivElement | null>(null);
   const falconRef = useRef<HTMLImageElement | null>(null);
@@ -37,13 +38,13 @@ export const SpaceInvaders = () => {
       // let poz = 0;
 
       if (poz == 0) {
-        tie.style.animation = `${styles.tie0} 7s linear`;
+        tie.style.animation = `${styles.tie0} ${tieSpeed}s linear`;
       } else if (poz == 1) {
-        tie.style.animation = `${styles.tie1} 7s linear`;
+        tie.style.animation = `${styles.tie1} ${tieSpeed}s linear`;
       } else if (poz == 2) {
-        tie.style.animation = `${styles.tie2} 7s linear`;
+        tie.style.animation = `${styles.tie2} ${tieSpeed}s linear`;
       } else if (poz == 3) {
-        tie.style.animation = `${styles.tie3} 7s linear`;
+        tie.style.animation = `${styles.tie3} ${tieSpeed}s linear`;
       }
 
       // if(gameRef.current) {

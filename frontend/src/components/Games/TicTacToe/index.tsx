@@ -1,12 +1,11 @@
 import { Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { useTicTacToe } from "./useTicTacToe";
+import { useLocation } from "react-router-dom";
 
-interface TicTacToeProps {
-  singleplayer: boolean;
-}
-
-export const TicTacToe: React.FC<TicTacToeProps> = ({ singleplayer }) => {
+export const TicTacToe: React.FC = () => {
+  const location = useLocation();
+  const { singleplayer } = location.state;
   const hook = useTicTacToe(singleplayer);
 
   return (

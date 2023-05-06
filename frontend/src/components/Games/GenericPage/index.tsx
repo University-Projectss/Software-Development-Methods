@@ -1,6 +1,6 @@
 import { StarIcon } from "@chakra-ui/icons";
 import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BubbleMessage } from "./BubbleMessage";
 import {
   Modal,
@@ -20,6 +20,7 @@ import { UserContext } from "../../../App";
 
 export const GenericPage = () => {
   const user = useContext(UserContext);
+  const nav = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const { title, description, rating } = location.state;
@@ -27,16 +28,18 @@ export const GenericPage = () => {
   const [reviewText, setReviewText] = useState<string>("");
   const [reviewRating, setReviewRating] = useState<number>(1);
 
+  const [reviewList, setReviewList] = useState<any[]>([]);
+
   const sendReview = () => {
     apiClient
       .post("/api/Review/Create", {
         username: user.user.username,
         namegame:
-          title.toLowerCase() === "tictactoe"
+          title.toLowerCase() === "tic tac toe"
             ? "xsizero"
-            : title.toLowerCase() === "connectfour"
+            : title.toLowerCase() === "connect four"
             ? "ConnectFour"
-            : title.toLowerCase() === "spaceinvaders"
+            : title.toLowerCase() === "space invaders"
             ? "Space Invaders"
             : "",
         reviewText: reviewText,
@@ -51,7 +54,25 @@ export const GenericPage = () => {
   };
 
   useEffect(() => {
-    console.log(reviewText.length);
+    apiClient
+      .get("/api/Review/GetAllbyGameId", {
+        data: {
+          gamename:
+            title.toLowerCase() === "tic tac toe"
+              ? "xsizero"
+              : title.toLowerCase() === "connect four"
+              ? "ConnectFour"
+              : title.toLowerCase() === "space invaders"
+              ? "Space Invaders"
+              : "",
+        },
+      })
+      .then((res) => {
+        setReviewList(res.data.values);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -79,7 +100,6 @@ export const GenericPage = () => {
           {description}
         </Text>
       </Flex>
-
       <Flex position="absolute" top={10} right={10}>
         <Text marginRight={2} fontSize={30} color="#F3EFE0">
           {rating}/5
@@ -87,28 +107,87 @@ export const GenericPage = () => {
         <StarIcon boxSize={10} color="gold" />
       </Flex>
 
-      <Flex
-        position="absolute"
-        top="30%"
-        left={10}
-        h={400}
-        w={600}
-        backgroundSize="cover"
-        backgroundImage="/resources/test.jpg"
-        borderRadius={10}
-      />
+      {title.toLowerCase() === "tic tac toe" && (
+        <Flex
+          position="absolute"
+          top="30%"
+          left={10}
+          h={400}
+          w={600}
+          backgroundSize="cover"
+          backgroundImage="/resources/tic-tac-toe.png"
+          backgroundPosition="center"
+          borderRadius={10}
+        />
+      )}
+
+      {title.toLowerCase() === "connect four" && (
+        <Flex
+          position="absolute"
+          top="30%"
+          left={10}
+          h={400}
+          w={600}
+          backgroundSize="cover"
+          backgroundImage="/resources/connect-four.png"
+          backgroundPosition="center"
+          borderRadius={10}
+        />
+      )}
+
+      {title.toLowerCase() === "space invaders" && (
+        <Flex
+          position="absolute"
+          top="30%"
+          left={10}
+          h={400}
+          w={600}
+          backgroundSize="cover"
+          backgroundImage="/resources/space-invaders.png"
+          backgroundPosition="center"
+          borderRadius={10}
+        />
+      )}
 
       <Flex marginLeft={10} direction="column" h={600} justify="center">
         {(title.toLowerCase() === "connect four" ||
           title.toLowerCase() === "tic tac toe") && (
-          <Button marginBottom={10}>Multiplayer</Button>
+          <Button
+            marginBottom={10}
+            onClick={() => {
+              if (title.toLowerCase() === "connect four") {
+                nav("/connect-four");
+              } else {
+                nav("/tic-tac-toe", {
+                  state: {
+                    singleplayer: false,
+                  },
+                });
+              }
+            }}
+          >
+            Multiplayer
+          </Button>
         )}
         {(title.toLowerCase() === "tic tac toe" ||
           title.toLowerCase() === "space invaders") && (
-          <Button>Singleplayer</Button>
+          <Button
+            onClick={() => {
+              if (title.toLowerCase() === "tic tac toe") {
+                nav("/tic-tac-toe", {
+                  state: {
+                    singleplayer: true,
+                  },
+                });
+              } else {
+                nav("/space-invaders");
+              }
+            }}
+          >
+            Singleplayer
+          </Button>
         )}
       </Flex>
-
       <Flex
         width={500}
         height={400}
@@ -120,20 +199,18 @@ export const GenericPage = () => {
       >
         <BubbleMessage
           isFromMe={true}
-          text="Wow great game Wow great game Wow great game Wow great game "
+          text={reviewList[0]?.reviewText ?? "Great game!"}
         />
         <BubbleMessage
           isFromMe={false}
-          text="Wow best game ever Wow best game ever Wow best game ever"
+          text={reviewList[1]?.reviewText ?? "WOW! What a game!!"}
         />
         <BubbleMessage
           isFromMe={true}
-          text="Wow great game Wow great game Wow great game Wow great game "
+          text={reviewList[2]?.reviewText ?? "Meh, I played better games"}
         />
       </Flex>
-
       <Button onClick={onOpen}>Leave a review</Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

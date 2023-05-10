@@ -46,8 +46,10 @@ export const Forum = () => {
     apiClient
       .get("/api/Message/GetAll-Messages")
       .then((res: any) => {
+        console.log(res.data.$values);
+        
         setMessages(
-          res.data.map((m: any) => {
+          res.data.$values.map((m: any) => {
             return {
               username: m.username,
               text: m.textMessage,

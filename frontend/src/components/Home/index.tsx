@@ -17,12 +17,14 @@ export const HomeComponent = () => {
         },
       })
       .then((res) => {
+        console.log(res.data);
+        
         setTicTacRating(
           Math.floor(
-            res.data.values
+            res.data.$values
               .map((r: any) => r.rating)
               .reduce((a: number, b: number) => a + b, 0) /
-              res.data.values.length
+              res.data.$values.length
           )
         );
       })
@@ -37,10 +39,10 @@ export const HomeComponent = () => {
       .then((res) => {
         setConnectRating(
           Math.floor(
-            res.data.values
+            res.data.$values
               .map((r: any) => r.rating)
               .reduce((a: number, b: number) => a + b, 0) /
-              res.data.values.length
+              res.data.$values.length
           )
         );
       })
@@ -55,10 +57,10 @@ export const HomeComponent = () => {
       .then((res) => {
         setSpaceRating(
           Math.floor(
-            res.data.values
+            res.data.$values
               .map((r: any) => r.rating)
               .reduce((a: number, b: number) => a + b, 0) /
-              res.data.values.length
+              res.data.$values.length
           )
         );
       })

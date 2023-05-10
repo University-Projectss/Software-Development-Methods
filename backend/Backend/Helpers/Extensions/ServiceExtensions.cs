@@ -1,7 +1,11 @@
 ﻿using Backend.Helpers.JwtUtils;
+using Backend.Repositories.GameRepository;
 using Backend.Repositories.MessageRepository;
+using Backend.Repositories.ReviewRepository;
 using Backend.Repositories.UserRepository;
+using Backend.Services.GameService;
 using Backend.Services.MessageService;
+using Backend.Services.ReviewService;
 using Backend.Services.UserService;
 
 namespace Backend.Helpers.Extensions
@@ -12,6 +16,8 @@ namespace Backend.Helpers.Extensions
         {
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IMessageRepository, MessageRepository>();
+            services.AddTransient<IGameRepository, GameRepository>();
+            services.AddTransient<IReviewRepository, ReviewRepository>();
             return services;
         }
 
@@ -19,6 +25,8 @@ namespace Backend.Helpers.Extensions
         {
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IGameService, GameService>();
+            services.AddTransient<IReviewService, ReviewService>();
             return services;
         }
 

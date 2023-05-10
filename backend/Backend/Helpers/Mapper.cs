@@ -14,6 +14,10 @@ namespace Backend.Helpers
             CreateMap<UserDTO, User>();
             CreateMap<UserRequestDTO, User>();
             CreateMap<UserResponseDTO, User>();
+            CreateMap<GameDTO, Game>();
+            CreateMap<Game, GameDTO>();
+            CreateMap<Review, ReviewDTO>();
+            CreateMap<ReviewDTO, Review>();
         }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alex\\Source\\Repos\\MDS\\backend\\Backend\\Backend.csproj": {}
+    "C:\\Users\\Alex\\Documents\\MDS\\backend\\Backend\\Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alex\\Source\\Repos\\MDS\\backend\\Backend\\Backend.csproj": {
+    "C:\\Users\\Alex\\Documents\\MDS\\backend\\Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alex\\Source\\Repos\\MDS\\backend\\Backend\\Backend.csproj",
+        "projectUniqueName": "C:\\Users\\Alex\\Documents\\MDS\\backend\\Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "C:\\Users\\Alex\\Source\\Repos\\MDS\\backend\\Backend\\Backend.csproj",
+        "projectPath": "C:\\Users\\Alex\\Documents\\MDS\\backend\\Backend\\Backend.csproj",
         "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alex\\Source\\Repos\\MDS\\backend\\Backend\\obj\\",
+        "outputPath": "C:\\Users\\Alex\\Documents\\MDS\\backend\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -56,6 +56,10 @@
               "target": "Package",
               "version": "[6.0.15, )"
             },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.16, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.3, )"
@@ -73,6 +77,10 @@
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -102,7 +110,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

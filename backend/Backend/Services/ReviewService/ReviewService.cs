@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using Backend.Models;
 using Backend.Repositories.GameRepository;
 using Backend.Repositories.ReviewRepository;
@@ -48,5 +49,11 @@ namespace Backend.Services.ReviewService
             return _reviewRepository.GetAllbyGameID(id);
         }
 
+=======
+﻿namespace Backend.Services.ReviewService
+{
+    public class ReviewService
+    {
+>>>>>>> c4bb946cca7a745bc1a9caeed891577d822a661a
     }
 }

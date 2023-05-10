@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\backend",
+    "\\backend\\Backend",
+    "\\backend\\Backend\\Services",
+    "\\backend\\Backend\\Services\\MessageService",
     "\\frontend"
   ],
-  "SelectedNode": "\\backend",
   "PreviewInSolutionExplorer": false
 }

@@ -28,6 +28,7 @@ builder.Services.AddRepositories();
 builder.Services.AddServices();
 builder.Services.AddUtils();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -58,7 +59,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 var app = builder.Build();
-app.UseCors("AllowAll");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -71,6 +72,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseAuthentication();
 app.UseMiddleware<JwtMiddleware>();
+
+app.UseCors("AllowAll");
 
 app.MapControllers();
 

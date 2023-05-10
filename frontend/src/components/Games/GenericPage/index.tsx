@@ -33,6 +33,7 @@ export const GenericPage = () => {
   const sendReview = () => {
     apiClient
       .post("/api/Review/Create", {
+      //  params: {
         username: user.user.username,
         namegame:
           title.toLowerCase() === "tic tac toe"
@@ -44,6 +45,7 @@ export const GenericPage = () => {
             : "",
         reviewText: reviewText,
         rating: reviewRating,
+      //  }
       })
       .then(() => {
         console.log("POST GOOD");
@@ -53,27 +55,32 @@ export const GenericPage = () => {
     onClose();
   };
 
+  
+
   useEffect(() => {
     apiClient
-      .get("/api/Review/GetAllbyGameId", {
-        data: {
-          gamename:
-            title.toLowerCase() === "tic tac toe"
-              ? "xsizero"
-              : title.toLowerCase() === "connect four"
-              ? "ConnectFour"
-              : title.toLowerCase() === "space invaders"
-              ? "Space Invaders"
-              : "",
-        },
-      })
+      .get('/api/Review/GetAllbyGameId/',  {params: {
+        gamename: title.toLowerCase() === "tic tac toe"
+        ? "xsizero"
+        : title.toLowerCase() === "connect four"
+        ? "ConnectFour"
+        : title.toLowerCase() === "space invaders"
+        ? "Space Invaders"
+        : ""
+      }})
+
+        
+      
       .then((res) => {
-        setReviewList(res.data.values);
+        setReviewList(res.data.$values);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  console.log(title.toLowerCase());
+  
 
   return (
     <Flex

@@ -27,7 +27,7 @@ export const useTicTacToe = (singleplayer: boolean) => {
       if (result === 1) {
         apiClient
           .put("/api/User/increment-won-TicTacToe", {
-            name: user.user.username,
+            params: { name: user.user.username },
           })
           .then((res) => {
             console.log("good increment ");

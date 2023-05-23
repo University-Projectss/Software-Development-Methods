@@ -1,12 +1,31 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
-import React from "react";
 import { NavBar } from "../NavBar";
+import { useContext, useEffect } from "react";
+import { apiClient } from "../Utils/apiClient";
+import { UserContext } from "../../App";
 
 export const Profile = () => {
+  const user = useContext(UserContext);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.reload();
   };
+
+  useEffect(() => {
+    apiClient
+      .get("/api/User/GetAchievementsOfUser", {
+        params: {
+          name: user.user.username,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>

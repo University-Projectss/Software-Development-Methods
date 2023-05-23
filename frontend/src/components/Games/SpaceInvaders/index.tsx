@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Style.module.css";
+import { apiClient } from "../../Utils/apiClient";
+import { UserContext } from "../../../App";
 
 export const SpaceInvaders = () => {
   /*
@@ -8,10 +10,14 @@ export const SpaceInvaders = () => {
     direction 2 -> SUS
     direction 3 -> DREAPTA
 */
+
+  const user = useContext(UserContext);
   const [angle, setAngle] = useState<number>(0);
   const [direction, setDirection] = useState<number>(0);
 
   const [tieSpeed, setTieSpeed] = useState<number>(7);
+
+  const [tieKilled, settieKilled] = useState<number>(0);
 
   const gameRef = useRef<HTMLDivElement | null>(null);
   const falconRef = useRef<HTMLImageElement | null>(null);
@@ -78,6 +84,18 @@ export const SpaceInvaders = () => {
           clearInterval(tieGenerator);
           console.log("LOSE");
 
+          apiClient
+            .put("/api/User/increment-highscore-SpaceInvaders", {
+              name: user.user.username,
+              newhs: tieKilled,
+            })
+            .then((res) => {
+              console.log("increment successfully");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
           //Ecranul de final pt ca am pierdut :(
 
           let finish = document.createElement("div");
@@ -125,6 +143,7 @@ export const SpaceInvaders = () => {
         ) {
           laser.remove();
           ship.remove();
+          settieKilled(tieKilled + 1);
           // console.log('WIN');
         }
       }

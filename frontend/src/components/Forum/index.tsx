@@ -29,16 +29,15 @@ export const Forum = () => {
         )
         .then(() => {
           console.log("ok message post");
+          setMessages([
+            { username: userContext.user.username, text: currentMessage },
+            ...messages,
+          ]);
+          setCurrentMessage("");
         })
         .catch((err) => {
           console.log(err);
         });
-
-      setMessages([
-        { username: userContext.user.username, text: currentMessage },
-        ...messages,
-      ]);
-      setCurrentMessage("");
     }
   };
 
@@ -47,7 +46,7 @@ export const Forum = () => {
       .get("/api/Message/GetAll-Messages")
       .then((res: any) => {
         console.log(res.data.$values);
-        
+
         setMessages(
           res.data.$values.map((m: any) => {
             return {

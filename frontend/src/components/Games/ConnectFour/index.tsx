@@ -1,7 +1,10 @@
 import { Flex } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { apiClient } from "../../Utils/apiClient";
+import { UserContext } from "../../../App";
 
 export const ConnetFour = () => {
+  const user = useContext(UserContext);
   let mat: any = [];
   for (let i = 0; i < 6; i++) {
     let v: any = [];
@@ -173,6 +176,19 @@ export const ConnetFour = () => {
     let i, j;
     if (winner === "red" || winner === "yellow") {
       alert(`${winner.toUpperCase()} WIN!`);
+
+      if (winner === "red") {
+        apiClient
+          .put("/api/User/increment-won-Connect4", {
+            name: user.user.username,
+          })
+          .then((res) => {
+            console.log("good increment ");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     } else {
       alert("DRAW!");
     }

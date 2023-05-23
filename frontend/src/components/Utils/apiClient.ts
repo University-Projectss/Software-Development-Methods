@@ -34,4 +34,4 @@ export const apiClient = axios.create({
   baseURL: BASE_URL,
 });
 
-//errorInterceptor(apiClient);
+errorInterceptor(apiClient);

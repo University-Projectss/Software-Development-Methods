@@ -33,7 +33,7 @@ export const GenericPage = () => {
   const sendReview = () => {
     apiClient
       .post("/api/Review/Create", {
-      //  params: {
+        //  params: {
         username: user.user.username,
         namegame:
           title.toLowerCase() === "tic tac toe"
@@ -45,7 +45,7 @@ export const GenericPage = () => {
             : "",
         reviewText: reviewText,
         rating: reviewRating,
-      //  }
+        //  }
       })
       .then(() => {
         console.log("POST GOOD");
@@ -55,22 +55,20 @@ export const GenericPage = () => {
     onClose();
   };
 
-  
-
   useEffect(() => {
     apiClient
-      .get('/api/Review/GetAllbyGameId/',  {params: {
-        gamename: title.toLowerCase() === "tic tac toe"
-        ? "xsizero"
-        : title.toLowerCase() === "connect four"
-        ? "ConnectFour"
-        : title.toLowerCase() === "space invaders"
-        ? "Space Invaders"
-        : ""
-      }})
-
-        
-      
+      .get("/api/Review/GetAllbyGameId/", {
+        params: {
+          gamename:
+            title.toLowerCase() === "tic tac toe"
+              ? "xsizero"
+              : title.toLowerCase() === "connect four"
+              ? "ConnectFour"
+              : title.toLowerCase() === "space invaders"
+              ? "Space Invaders"
+              : "",
+        },
+      })
       .then((res) => {
         setReviewList(res.data.$values);
       })
@@ -80,7 +78,6 @@ export const GenericPage = () => {
   }, []);
 
   console.log(title.toLowerCase());
-  
 
   return (
     <Flex
@@ -163,13 +160,31 @@ export const GenericPage = () => {
             marginBottom={10}
             onClick={() => {
               if (title.toLowerCase() === "connect four") {
-                nav("/connect-four");
+                apiClient
+                  .put("/api/User/increment-played-TicTacToe", {
+                    name: user.user.username,
+                  })
+                  .then((res) => {
+                    nav("/connect-four");
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               } else {
-                nav("/tic-tac-toe", {
-                  state: {
-                    singleplayer: false,
-                  },
-                });
+                apiClient
+                  .put("/api/User/increment-played-TicTacToe", {
+                    name: user.user.username,
+                  })
+                  .then((res) => {
+                    nav("/tic-tac-toe", {
+                      state: {
+                        singleplayer: false,
+                      },
+                    });
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               }
             }}
           >
@@ -181,13 +196,31 @@ export const GenericPage = () => {
           <Button
             onClick={() => {
               if (title.toLowerCase() === "tic tac toe") {
-                nav("/tic-tac-toe", {
-                  state: {
-                    singleplayer: true,
-                  },
-                });
+                apiClient
+                  .put("/api/User/increment-played-TicTacToe", {
+                    name: user.user.username,
+                  })
+                  .then((res) => {
+                    nav("/tic-tac-toe", {
+                      state: {
+                        singleplayer: true,
+                      },
+                    });
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               } else {
-                nav("/space-invaders");
+                apiClient
+                  .put("/api/User/increment-played-SpaceInvaders", {
+                    name: user.user.username,
+                  })
+                  .then((res) => {
+                    nav("/space-invaders");
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               }
             }}
           >

@@ -2,10 +2,13 @@
  * On singleplayer mode, AI play as '0'.
  */
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BoardInterface, MoveInterface } from "./types";
+import { apiClient } from "../../Utils/apiClient";
+import { UserContext } from "../../../App";
 
 export const useTicTacToe = (singleplayer: boolean) => {
+  const user = useContext(UserContext);
   const [turn, setTurn] = useState<number>(1);
   const [playMiniMax, setPlayMiniMax] = useState<boolean>(false);
 
@@ -20,6 +23,19 @@ export const useTicTacToe = (singleplayer: boolean) => {
 
     if (result !== -1) {
       window.alert(result === 0 ? "DRAW" : result === 1 ? "X WON" : "O WON");
+
+      if (result === 1) {
+        apiClient
+          .put("/api/User/increment-won-TicTacToe", {
+            name: user.user.username,
+          })
+          .then((res) => {
+            console.log("good increment ");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
 
       resetTable();
     }

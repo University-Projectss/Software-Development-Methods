@@ -86,8 +86,7 @@ export const SpaceInvaders = () => {
 
           apiClient
             .put("/api/User/increment-highscore-SpaceInvaders", {
-              name: user.user.username,
-              newhs: tieKilled,
+              params: { name: user.user.username, newhs: tieKilled },
             })
             .then((res) => {
               console.log("increment successfully");

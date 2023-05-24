@@ -162,7 +162,7 @@ export const GenericPage = () => {
               if (title.toLowerCase() === "connect four") {
                 apiClient
                   .put("/api/User/increment-played-TicTacToe", {
-                    params: { name: user.user.username },
+                    name: user.user.username,
                   })
                   .then((res) => {
                     nav("/connect-four");
@@ -173,7 +173,7 @@ export const GenericPage = () => {
               } else {
                 apiClient
                   .put("/api/User/increment-played-TicTacToe", {
-                    params: { name: user.user.username },
+                    name: user.user.username,
                   })
                   .then((res) => {
                     nav("/tic-tac-toe", {
@@ -198,7 +198,7 @@ export const GenericPage = () => {
               if (title.toLowerCase() === "tic tac toe") {
                 apiClient
                   .put("/api/User/increment-played-TicTacToe", {
-                    params: { name: user.user.username },
+                    name: user.user.username,
                   })
                   .then((res) => {
                     nav("/tic-tac-toe", {
@@ -213,7 +213,7 @@ export const GenericPage = () => {
               } else {
                 apiClient
                   .put("/api/User/increment-played-SpaceInvaders", {
-                    params: { name: user.user.username },
+                    name: user.user.username,
                   })
                   .then((res) => {
                     nav("/space-invaders");

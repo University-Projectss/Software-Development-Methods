@@ -180,7 +180,7 @@ export const ConnetFour = () => {
       if (winner === "red") {
         apiClient
           .put("/api/User/increment-won-Connect4", {
-            params: { name: user.user.username },
+            name: user.user.username,
           })
           .then((res) => {
             console.log("good increment ");

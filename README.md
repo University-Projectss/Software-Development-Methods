@@ -16,6 +16,15 @@ Tic Tac Toe, Connect Four, Space Invaders Custom
 - Authentication
 - Profile page with achievements, top games, stats/game
 
+## Link to Diagram
+https://www.figma.com/file/y4BgzFNv9unamu4F3B4bx8/MDS-Project?node-id=0%3A1&t=ESp37i4T2VKOH2Vs-1
+
+## Link to Backlog
+https://mdsproject.atlassian.net/jira/software/projects/MDS/boards/2
+
+## Link to Showcase
+
+
 ## Authors
 
 - [Andrei Balanica](https://github.com/Balanica)

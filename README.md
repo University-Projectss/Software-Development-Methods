@@ -10,11 +10,11 @@ Tic Tac Toe, Connect Four, Space Invaders Custom
 
 ## Description:
 	
-	 The website should offer a variety of games for players of all ages and interests, with features designed to enhance your gaming experience. You can also leave reviews for each game, so others can learn from your experiences and you can find the best games for you.
-
+	The website should offer a variety of games for players of all ages and interests, with features designed to enhance your gaming experience. 
+	You can also leave reviews for each game, so others can learn from your experiences and you can find the best games for you.
 	You can also connect with other gamers through our forum, where you can share tips, tricks, and strategies, or just chat about your favorite games.
-
-We want our users(players) to get an ideea about the game before they play, so every game on our website includes a preview. And for their security and privacy, we offer authentication and secure login. Users will have a profile page that shows their achievements.
+	We want our users(players) to get an ideea about the game before they play, so every game on our website includes a preview. 
+	And for their security and privacy, we offer authentication and secure login. Users will have a profile page that shows their achievements.
 	
 -----------------------------------------------------------
 

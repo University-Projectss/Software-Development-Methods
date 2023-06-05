@@ -6,15 +6,51 @@ A web application that host some of the most popular retro games, that you can p
 
 Tic Tac Toe, Connect Four, Space Invaders Custom
 
-## Features
+-----------------------------------------------------------
 
-- Top 5 players on every game
-- Review section on every game
-- Multiplayer mode on same device or online
-- Forum
-- Game preview
-- Authentication
-- Profile page with achievements, top games, stats/game
+## Description:
+	
+	 The website should offer a variety of games for players of all ages and interests, with features designed to enhance your gaming experience. You can also leave reviews for each game, so others can learn from your experiences and you can find the best games for you.
+
+	You can also connect with other gamers through our forum, where you can share tips, tricks, and strategies, or just chat about your favorite games.
+
+We want our users(players) to get an ideea about the game before they play, so every game on our website includes a preview. And for their security and privacy, we offer authentication and secure login. Users will have a profile page that shows their achievements.
+	
+-----------------------------------------------------------
+
+## User stories:
+
+	- Review section per game
+			As a user, you can read other players reviews on every game and you can write your own reviews
+
+	- Rating system
+			As a user, besides the written review, you can give the game a score from 1 to 5
+
+	- Multiplayer on same device
+			As a user, you can play some games with your friends, on the same device
+	
+	- Tic, Tac, Toe
+			As a user, you can play the most classic variant of Tic, Tac, Toe
+
+	- Connect Four
+			As a user, you can play a modern version of Connect Four
+
+	- Space Invaders
+			As a user, you can play a modified version of the famous Space Invaders
+
+	- Forum 
+			As a user, you can interact with other users through the forum, by writing messages.
+
+	- Every game will have some sort of preview
+			As a user, when you enter the game page, you will see a picture showcasing game footage
+
+	- Authentification
+			As a user, you can create an account, and login into that when you access the page in the future
+
+	- Profile page(achievements)
+			As a user, you will have a profile page, where you will see your achievements, meaning stats for the games you played.
+
+-----------------------------------------------------------
 
 ## Link to Diagram
 https://www.figma.com/file/y4BgzFNv9unamu4F3B4bx8/MDS-Project?node-id=0%3A1&t=ESp37i4T2VKOH2Vs-1

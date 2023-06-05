@@ -62,7 +62,7 @@ https://mdsproject.atlassian.net/jira/software/projects/MDS/boards/2
 https://youtu.be/StrHify8jns
 
 ## Raportare bug
---Bugs encountered:
+Bugs encountered:
 	 in Space Invaders then spaceship was not shooting down and in the left
 		 It was fixed by firstly isolating the problem by refactoring the code to be more readable 
 	and thus being able to find the exact line of code that was producing the error

@@ -61,6 +61,17 @@ https://mdsproject.atlassian.net/jira/software/projects/MDS/boards/2
 ## Link to Showcase
 https://youtu.be/StrHify8jns
 
+## Raportare bug
+--Bugs encountered:
+	-- in Space Invaders then spaceship was not shooting down and in the left
+		-- It was fixed by firstly isolating the problem by refactoring the code to be more readable 
+	and thus being able to find the exact line of code that was producing the error
+		-- the problem was that the function name was not being recognised by the compiler and thus not being called
+	-- when playing ConnectFour the counter for games played in ConnectFour was not being incremented
+		-- the problem was created by the ide when it autocompleted the wrong function name
+	-- the achievement "First time played Space Invaders" was appearing mutiple times
+		--the problem was that an achievement was not unique so it was created multiple times in the database
+		--solution was creating a if that checked if there was a achivement with that name in the database before creating the new one 
 ## Authors
 
 - [Andrei Balanica](https://github.com/Balanica)
